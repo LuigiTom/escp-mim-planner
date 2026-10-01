@@ -373,6 +373,15 @@
     });
   }
 
+  // Strips a cryptic leading code (HW3, Quiz 1, BB Quiz Topic 2...) from a
+  // deadline label, keeping only the descriptive part, when that pattern is
+  // present. Labels that are already plain descriptions (no leading code)
+  // are returned unchanged.
+  function descOnly(label){
+    var m = label.match(/^HW\d+\s*—\s*(.+)$/);
+    return m ? m[1] : label;
+  }
+
   function collectAllDeadlines(){
     var out=[];
     ALL_COURSES.forEach(function(course){
@@ -421,7 +430,7 @@
       var badge=countBadge(item.closes,item.done);
       li.innerHTML =
         '<span class="tag '+item.course+'">'+item.courseName+'</span>'+
-        '<span class="tl-label"><span class="name">'+item.label+'</span><span class="when mono">'+(item.closes?("chiude "+fmtDate(item.closes)):"data da confermare")+'</span></span>'+
+        '<span class="tl-label"><span class="name">'+descOnly(item.label)+'</span><span class="when mono">'+(item.closes?("chiude "+fmtDate(item.closes)):"data da confermare")+'</span></span>'+
         '<span class="count '+badge.cls+' mono">'+badge.text+'</span>';
       list.appendChild(li);
     });
@@ -429,7 +438,7 @@
     var urgent = all.filter(function(i){ return !i.done && i.closes && daysBetween(todayISO(),i.closes) <= 3; });
     var slot=document.getElementById("banner-slot");
     if(urgent.length){
-      var names = urgent.map(function(i){ return i.label.split(" — ")[0]; }).join(", ");
+      var names = urgent.map(function(i){ return descOnly(i.label); }).join(", ");
       slot.innerHTML = '<div class="banner">'+svgAlert()+'<div><strong>'+urgent.length+' '+(urgent.length>1?"scadenze":"scadenza")+' entro 3 giorni</strong><p>'+names+'</p></div></div>';
     } else {
       slot.innerHTML="";
@@ -519,7 +528,7 @@
       whenHtml = '<span class="dwhen">'+whenText+'</span>';
     }
     return '<div class="dchip"><label class="check"><input type="checkbox" data-kind="progress" data-id="'+pid+'" '+(done?"checked":"")+'></label>'+
-      '<span class="dname">'+r.label+'</span>'+whenHtml+
+      '<span class="dname">'+descOnly(r.label)+'</span>'+whenHtml+
       '<span class="count '+badge.cls+' mono" style="margin-left:auto">'+badge.text+'</span></div>';
   }
 
