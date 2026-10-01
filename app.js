@@ -378,7 +378,7 @@
     ALL_COURSES.forEach(function(course){
       Object.keys(course.deadlines).forEach(function(k){
         var r=resolveDeadline(course,k);
-        out.push({course:course.key,id:k,label:r.label,closes:r.closes,done:!!progress[progId(course.key,k)]});
+        out.push({course:course.key,courseName:course.navLabel,id:k,label:r.label,closes:r.closes,done:!!progress[progId(course.key,k)]});
       });
     });
     out.sort(function(a,b){
@@ -420,7 +420,7 @@
       var li=document.createElement("li");
       var badge=countBadge(item.closes,item.done);
       li.innerHTML =
-        '<span class="tag '+item.course+'">'+item.course.toUpperCase()+'</span>'+
+        '<span class="tag '+item.course+'">'+item.courseName+'</span>'+
         '<span class="tl-label"><span class="name">'+item.label+'</span><span class="when mono">'+(item.closes?("chiude "+fmtDate(item.closes)):"data da confermare")+'</span></span>'+
         '<span class="count '+badge.cls+' mono">'+badge.text+'</span>';
       list.appendChild(li);
