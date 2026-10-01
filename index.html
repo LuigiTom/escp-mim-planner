@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ESCP MiM Planner</title>
+<meta name="description" content="Scadenze e materiali di tutti i corsi del MiM ESCP di Luigi, in un'unica app installabile e offline.">
+<meta name="theme-color" content="#4f6df5">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MiM Planner">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <img src="icons/icon-192.png" class="brand-mark" alt="">
+      <div class="brand-text"><strong>ESCP MiM</strong><span>Planner — Semestre 1, 2026/27</span></div>
+    </div>
+    <nav class="navlist" id="navlist"></nav>
+    <div class="sidebar-footer">
+      <button id="themeToggle" class="ghost-btn" type="button"><span>🌙</span><span class="label">Modalità scura</span></button>
+      <button id="exportBtn" class="ghost-btn" type="button"><span>⬇️</span><span class="label">Esporta dati</span></button>
+      <label class="ghost-btn" for="importFile"><span>⬆️</span><span class="label">Importa dati</span></label>
+      <input type="file" id="importFile" accept="application/json" hidden>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="content" id="content-scroll">
+      <div id="content">
+        <section class="view" id="view-overview">
+          <div class="pagehead">
+            <h1>Panoramica</h1>
+            <span class="sub">Tutti i corsi, in ordine di scadenza</span>
+          </div>
+          <div id="banner-slot"></div>
+          <div class="stats" id="stats-slot"></div>
+          <p class="section-label">Tutte le scadenze</p>
+          <ul class="timeline" id="overview-list"></ul>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
